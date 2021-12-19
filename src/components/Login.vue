@@ -1,0 +1,246 @@
+<template>
+  <div class="main">
+    <div class="logo">
+      <img src="../assets/logo2.png">
+    </div>
+    <div class="formContainer">
+      <img src="../assets/user.png">
+          <h1>Login</h1>
+
+          <form @submit.prevent="onSubmit">
+            
+            <input type="email" placeholder="E-Mail-Address" name="email" required>
+            <input type="password" placeholder="Password" name="pass" required>
+          
+          
+          
+            <button type="submit" >
+                            {{ isUser ? 'Giriş Yap' : 'Kayıt Ol' }}
+            </button>
+                        
+                    
+          <div class="bottom">
+            <h5>Are you new?</h5>
+            <a onclick="register" href="#">Sign Up</a>
+          </div>
+        </form>
+    </div>
+  </div>
+</template>
+
+<script>
+
+    export default {
+        data() {
+            return {
+                user: {
+                    email: null,
+                    password: null
+                },
+                isUser: false
+            }
+        },
+        methods: {
+          
+           
+        },
+        created(){
+            
+          }
+    }
+</script>
+
+
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap");
+* {
+  box-sizing: border-box;
+  padding:0;
+  margin:0;
+}
+/*General style rules*/
+:root {
+  --primaryBnt: #90a877;
+  
+  --text: #37424c;
+  --icon: #7a925e;
+  --borderRadius: 8px;
+}
+
+.main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+
+  font-family: "Ubuntu", sans-serif;
+
+  background: linear-gradient(
+    45deg,
+    #b5d493 0%,
+    #c0daaafd 50%,
+    rgba(243, 247, 241, 1) 100%
+  );
+  overflow: hidden;
+ 
+}
+a {
+  color: #7a925e;
+  
+  font-size: 0.9em;
+}
+span {
+  color: #1b1d1c;
+  font-weight: bold;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}
+
+h1, h5 {
+  text-align: center;
+  font-weight: 300;
+  color: rgb(43, 41, 41);
+  
+  
+}
+
+/*customer rules */
+.logo{
+  width:600px;
+  
+  border: none;
+  margin-right: 80px;
+  }
+  .logo img{
+    width:100%;
+    object-fit: cover;
+  }
+.formContainer {
+  width: 400px;
+  padding: 40px;
+  background-color: transparent;
+  border-radius: var(--borderRadius);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+.formContainer > img {
+  width: 100px;
+  margin: 0 auto;
+}
+.formContainer h5 {
+  margin: 0;
+  margin-right: 5px;
+}
+
+.formContainer .bottom {
+  display: flex;
+  margin: 0 auto;
+}
+.formContainer > i {
+  font-size: 3em;
+
+  color: var(--icon);
+}
+
+input{
+  font-family: Montserrat;
+  border: none;
+  border-bottom: 1px solid var(--icon);
+  background-color: #c0daaafd;
+  outline: none;
+  padding: 8px 25px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  
+ 
+}
+.formContainer form {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 15px;
+}
+.icon_b,
+.icon_p {
+  position: absolute;
+  top: 28px;
+  left: 5px;
+}
+
+button {
+  font-family: Montserrat;
+  display: block;
+  border-radius: 8px;
+  color: rgb(248, 240, 240);
+  background-color: #90a877;
+  border: none;
+  padding: 8px 0;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+button :hover {
+  background-color: #404b33;
+}
+i {
+  color: var(--icon);
+}
+#passVer {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+span.info {
+  color: #940b12;
+  text-align: center;
+  height: 20px;
+}
+h5{
+  font-size: 0.8em;
+}
+/* #under {
+  text-align: center;
+} */
+/*second page css rules*/
+table {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-collapse: collapse;
+  border-style: hidden;
+  font-size: 0.9em;
+  font-weight: 600;
+  text-align: left;
+}
+table td {
+  width: 180px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+}
+table td:nth-child(2) {
+  border-right: 1px solid var(--icon);
+  border-left: 1px solid var(--icon);
+}
+
+table th {
+  border: 1px solid var(--icon);
+  font-weight: normal;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+/* #logout {
+  margin-top: 30px;
+  text-align: left;
+  cursor: pointer;
+} */
+
+</style>
