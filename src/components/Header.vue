@@ -17,7 +17,7 @@
                 <li><a href="" class="menu-btn"> <i class="fas fa-cog"></i></a></li>
                 <li><a href="" class="menu-btn">
                     <div class="image"><img src="../assets/frau.png"></div></a></li>
-                <li><a @click.prevent="logout" :class="logoutClass" href="#">Logout</a>
+                <li><a @click="logout" href="#">Logout</a>
                     </li>
                 
                 
@@ -35,10 +35,39 @@
 <script>
     export default {
         methods: {
-            logout() {
-                this.$store.dispatch("logout")
-            }
-        },
+          logout(){
+            setTimeout(() => {
+
+      fetch("http://localhost/logout.php?token=" + (document.cookie.split("=")[1]),
+      {
+        mode: "cors",
+
+      })
+      .then(response => response.json())
+      .then(sonuc => {
+
+        if(sonuc.successful == "1")
+        {
+          
+          document.cookie = "token=" + sonuc.token;
+          
+          // HOS GELDIN
+          // sayfayi degis
+          // ...
+           this.$router.push('/')
+        }
+
+        
+      })
+      .finally(() =>
+      {
+        this.loading = false;
+      });
+
+    }, 1500);
+
+        },}
+        ,
         computed: {
             logoutClass() {
                 return {
@@ -388,18 +417,18 @@ main .posts-content .posts-image img {
 
 /*******footer*******/
 
-footer {
+.footer {
   width: 100%;
   padding: 30px 0;
   font-family: "Ubuntu", sans-serif;
   background-color: var(--c1);
   text-align: center;
 }
-footer span {
+.footer span {
   color: #e7f0e3;
   font-size: 0.9em;
 }
-footer a {
+.footer a {
   color: #f3eaea;
 }
 
