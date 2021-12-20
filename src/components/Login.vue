@@ -7,16 +7,18 @@
       <img src="../assets/user.png">
           <h1>Login</h1>
 
-          <form @submit.prevent="onSubmit">
+          <form >
             
-            <input type="email" placeholder="E-Mail-Address" name="email" required>
-            <input type="password" placeholder="Password" name="pass" required>
+            <input type="email" placeholder="E-Mail-Address" v-model="u_email" required>
+            <input type="password" placeholder="Password" v-model="u_pass" required>
           
           
           
-            <button type="submit" >
-                            {{ isUser ? 'Giriş Yap' : 'Kayıt Ol' }}
+            <button @click="login" >
+                            {{ btn_text }}
             </button>
+
+            <span>{{ info }}</span>
                         
                     
           <div class="bottom">
@@ -33,14 +35,66 @@
     export default {
         data() {
             return {
-                user: {
-                    email: null,
-                    password: null
-                },
-                isUser: false
+              
+      u_email: "",
+      u_pass: "",
+      btn_text: "Login",
+      loading: false,
+      info: "",
+      new_user:false
+    
+                
             }
         },
         methods: {
+            login()
+    {
+      if(this.loading)
+        return;
+
+      this.loading = true;
+      this.btn_text = "Please wait..."
+
+      const formData = new FormData();
+      formData.append("email", this.u_email);
+      formData.append("pass", this.u_pass);
+
+      fetch("http://localhost/login.php",
+      {
+        method: 'POST',
+        mode: 'cors',
+        body: formData
+      })
+      .then(answer => answer.json())
+      .then(result => {
+        
+        if(result.successful == "1")
+        {
+          // BURASI DEGISTIRELECEK
+          document.cookie = "token=" + result.token;
+          
+          // HOS GELDIN
+          // sayfayi degis
+          // ...
+           this.$router.push('/about')
+
+          
+        }
+        else
+        {
+          this.info = "incorrect entry";
+        }
+
+      })
+      .finally(() =>
+      {
+        this.btn_text = "Login";
+        this.loading = false;
+      });
+
+      
+      
+    }
           
            
         },
