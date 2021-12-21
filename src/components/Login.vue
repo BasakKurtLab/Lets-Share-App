@@ -3,11 +3,13 @@
     <div class="logo">
       <img src="../assets/logo2.png">
     </div>
-    <div class="formContainer">
+    
+    
+    <div class="formContainer" v-show="!new_user">
       <img src="../assets/user.png">
           <h1>Login</h1>
 
-          <form >
+          <form>
             
             <input type="email" placeholder="E-Mail-Address" v-model="u_email" required>
             <input type="password" placeholder="Password" v-model="u_pass" required>
@@ -15,16 +17,42 @@
           
           
             <button @click="login" >
-                            {{ btn_text }}
+                             {{btn_text}}
             </button>
 
             <span>{{ info }}</span>
                         
-                    
+           </form> 
+
           <div class="bottom">
             <h5>Are you new?</h5>
-            <a onclick="register" href="#">Sign Up</a>
+            <a @click="reg" href="#">Sign Up</a>
           </div>
+      </div>
+  
+
+          <div class="formContainer" v-show="new_user">
+    
+          <img src="../assets/user.png">
+          <h1>Registration</h1>
+
+        <form >
+        <input type="text" placeholder="Name" v-model ="r_name"  required>
+        <input type="text" placeholder="Surname" v-model="r_surname" required>
+        <input type="text" placeholder="Username" v-model="r_username" required>
+        <input type="email" placeholder="E-Mail-Address" v-model="r_email" required>
+        <input type="password" placeholder="Password" v-model="r_pass" required>
+        <input type="text" placeholder="Telephone" v-model="r_tel" required>
+        <button @click="register" >
+                             {{btn_text}}
+        </button>
+        
+        
+        <div class="bottom">
+        <a @click="reg" href="#"><h5>Already have an account?</h5></a>
+            
+    </div>
+
         </form>
     </div>
   </div>
@@ -41,12 +69,30 @@
       btn_text: "Login",
       loading: false,
       info: "",
-      new_user:false
+      new_user:false,
+      r_name:"",
+      r_surname:"",
+      r_username:"",
+      r_email:"",
+      r_pass:"",
+      r_tel:""
     
                 
             }
         },
         methods: {
+          reg(){
+            this.new_user= !this.new_user;
+            if(this.new_user){
+              this.btn_text="Sign Up";
+            }
+            else{
+              this.btn_text="Login";
+            }
+            
+            
+
+          },
             login()
     {
       if(this.loading)
@@ -89,6 +135,54 @@
       .finally(() =>
       {
         this.btn_text = "Login";
+        this.loading = false;
+      });
+
+      
+      
+    },
+    register()
+    {
+      if(this.loading)
+        return;
+
+      this.loading = true;
+      
+
+      const formData = new FormData();
+      formData.append("name", this.r_name);
+      formData.append("surname", this.r_surname);
+      formData.append("username", this.r_username);
+      formData.append("email", this.r_email);
+      formData.append("pass", this.r_pass);
+      formData.append("tel", this.r_tel);
+
+      fetch("http://localhost/register.php",
+      {
+        method: 'POST',
+        mode: 'cors',
+        body: formData
+      })
+      .then(answer => answer.json())
+      .then(result => {
+        
+        if(result.successful == "1")
+        {
+          
+          
+          this.new_user=false;
+
+          
+        }
+        else
+        {
+          this.info = "Error";
+        }
+
+      })
+      .finally(() =>
+      {
+       
         this.loading = false;
       });
 
