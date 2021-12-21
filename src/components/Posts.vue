@@ -8,7 +8,7 @@
                             
                                 <div class="name">
                                     Ayse Acar
-                                    <span>added 1 photo</span></div>
+                                <span>added 1 photo</span></div>
                                 
 
                             <div class="posts-date">Today at.9.29 AM</div>
@@ -17,7 +17,7 @@
                         
                     </div>
                     <div class="posts-content">
-                        <div class="posts-title">Travelling to Austria</div>
+                        <div class="posts-title"> {{ }} </div>
                         <div class="posts-image">
                             <img src="images/freedom.jpg">
                         </div>
@@ -37,3 +37,55 @@
                     
                 </div>
 </template>
+
+<script>
+export default {
+    data(){
+        return{
+            
+        }
+    },
+    methods:{
+
+    },
+    created(){
+
+    //     fetch("http://localhost/posts.php",
+    //   {
+    //     method: 'POST',
+    //     mode: 'cors'
+       
+    //   })
+    //   .then(answer => answer.json())
+    //   .then(result => {
+        
+    //     if(result.successful == "1")
+    //     {
+          
+          
+          
+
+          
+    //     }
+        
+
+    //   })
+    //   .finally(() =>
+    //   {
+       
+    //     this.loading = false;
+    //   });
+
+      
+      
+    }
+          
+           
+        
+
+
+
+            
+}
+
+</script>
