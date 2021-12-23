@@ -54,7 +54,7 @@
           // HOS GELDIN
           // sayfayi degis
           // ...
-           this.$router.push('/')
+           this.$router.push('/');
         }
 
         
@@ -216,7 +216,7 @@ main .max-width {
 main section:not(section.left) {
   padding: 30px 25px 25px 25px;
 }
-main section {
+main section , .posts-content>.posts{
   border-radius: 10px;
   background-color: var(--c5);
   border: 1px solid var(--c7);
@@ -335,11 +335,15 @@ main .middle .post-menu a:hover {
 main .middle .post-bottom {
   margin-top: 30px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 main .middle .post-text {
   height: 45px;
   width: 100%;
 }
+
 main .middle .post-text input {
   height: 100%;
   width: 100%;
@@ -356,6 +360,32 @@ main .middle .post .image {
   top: 3px;
   left: 3px;
 }
+main .middle .post-text .img-add {
+  position: absolute;
+  right:5px;
+  top:-10px;
+  
+
+}
+
+
+main .middle .post .post-bottom button  {
+  padding:5px 8px;
+  margin-top: 20px;
+  border-radius: 6px;
+  outline: none;
+  border:1px solid rgb(182, 179, 179);
+  align-self: flex-end;
+  background-color: var(--c1);
+  color:var(--c3);
+  cursor: pointer;
+  transition: all o.2s;
+  
+}
+main .middle .post .post-bottom button:hover{
+  background-color: var(--c2);
+}
+
 /********posts styling******/
 
 main .posts-info {
@@ -394,10 +424,22 @@ main .posts-info .image {
 main .posts-content {
   display: flexbox;
   justify-content: center;
+  
 }
+main .posts-content>.post{
+  margin-bottom:10px;
+  border:1px solid rgb(219, 216, 216);
+  border-radius: 10px;
+  padding:10px;
+}
+main .posts-content> .post .title .name{
+  margin-left: 50px;
+  font-weight: bold;
+}
+
 main .posts-content .posts-title {
-  font-size: 1.2em;
-  color: rgb(80, 77, 77);
+  font-size: 1em;
+  color: rgb(14, 61, 7);
   font-family: "Ubuntu", sans-serif;
   font-weight: 400;
   margin-top: 20px;

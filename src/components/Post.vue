@@ -3,15 +3,21 @@
                     <div class="post-menu">
                         <h5> {{ username }} </h5>
                        
-                        <a href="" class="menu-btn"> <span>Posts</span></a>
+                        <a href="" class="menu-btn"> <span>Post</span></a>
                     
                         <a href="" class="menu-btn"><span>Photos</span></a>
                     </div>
                     <div class="post-bottom">
                     <div class="image"><img src="../assets/frau.png"></div>
                     <div class="post-text">
-                        <input type="text" placeholder="Write a post...">
+                      
+                        <input type="text" v-model="postText" placeholder="Write a post...">
+                        <!-- <div class="img-add">
+                          <input ref="file" type="file" style="display: none;" class="form-control">
+                          <button class="btn btn-outline-secondary " type="button" @click="$refs.file.click()">...</button></div> -->
                     </div>
+                    
+                    <button @click="send">{{btn_text}}</button>
                 </div>
                 </div>
 </template>
@@ -21,7 +27,9 @@ export default {
   {
     return {
       loading: true,
-      username: ""
+      username: "",
+      postText:"",
+      btn_text:"Just Share"
     }
   },
   created()
@@ -51,6 +59,70 @@ export default {
     }, 1500);
     
   },
+  methods:{
+    send(){
+      {
+      if(this.loading)
+        return;
+
+      this.loading = true;
+      this.btn_text = "Sending..."
+
+      const formData = new FormData();
+      formData.append("username", this.username);
+      formData.append("postText", this.postText);
+
+      fetch("http://localhost/send.php",
+      {
+        method: 'POST',
+        mode: 'cors',
+        body: formData
+      })
+      .then(answer => answer.json())
+      .then(result => {
+        
+        if(result.successful == "1")
+        {
+         this.postText="";
+         this.loading = false;
+
+          
+        }
+        else
+        {
+          this.info = "A problem...";
+        }
+
+      })
+      .finally(() =>
+      {
+        this.btn_text = "Just Share";
+        this.loading = false;
+      });
+
+      
+      
+    }
+
+    },
+//     async function uploadFile(){
+//     const formData = new FormData();
+//     formData.append('nameusedinFormData',uploadinput.files[0]);    
+//     try{
+//         const response = await fetch('http://localhost/photos.php',{
+//             method:'POST',
+//             body:formData
+//         } );
+//         const result = await response.json();
+//         console.log(result);
+//     }catch(e){
+//         console.log(e);
+
+//     }
+// }
+    
+    
+ }
 
 }
 </script>
