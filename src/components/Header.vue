@@ -13,11 +13,11 @@
 
             </div>
             <ul class="menu">
-                <li><a href="" class="menu-btn"> <i class="far fa-question-circle"></i></a></li>
-                <li><a href="" class="menu-btn"> <i class="fas fa-cog"></i></a></li>
+                <li><a @click.prevent="home" href="" class="menu-btn"> <i class="fas fa-home"></i></a></li>
+                <li><a @click.prevent="update" href="" class="menu-btn"> <i class="fas fa-cog"></i></a></li>
                 <li><a href="" class="menu-btn">
                     <div class="image"><img src="../assets/frau.png"></div></a></li>
-                <li><a @click="logout" href="#">Logout</a>
+                <li><a @click.prevent="logout" href="#">Logout</a>
                     </li>
                 
                 
@@ -34,6 +34,12 @@
  
 <script>
     export default {
+      data(){
+        return{
+          update_s : false,
+
+        }
+      },
         methods: {
           logout(){
             setTimeout(() => {
@@ -66,14 +72,22 @@
 
     }, 1500);
 
-        },}
+        },
+
+        update(){
+             this.$router.push('/user')
+
+        },
+        home(){
+           this.$router.push('/about')
+        }
+        
+        
+        
+        }
         ,
         computed: {
-            logoutClass() {
-                return {
-                    'd-none': !this.$store.getters.isAuthenticated
-                }
-            }
+            
         }
     }
 </script>
@@ -344,7 +358,7 @@ main .middle .post-text {
   width: 100%;
 }
 
-main .middle .post-text input {
+main .middle .post-text input, .posts-allcommits input {
   height: 100%;
   width: 100%;
   border: 1px solid var(--c7);
@@ -369,7 +383,7 @@ main .middle .post-text .img-add {
 }
 
 
-main .middle .post .post-bottom button  {
+main .middle .post .post-bottom button, .posts-allcommits button {
   padding:5px 8px;
   margin-top: 20px;
   border-radius: 6px;
@@ -387,43 +401,10 @@ main .middle .post .post-bottom button:hover{
 }
 
 /********posts styling******/
-
-main .posts-info {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-main .posts .post-name {
-  display: flexbox;
-  flex-direction: column;
-}
-.posts-name .name {
-  font-family: "Ubuntu", sans-serif;
-  font-size: 1.3em;
-  color: rgb(56, 53, 53);
-  margin-bottom: 3px;
-  font-weight: 500;
-}
-.posts-name .name span {
-  font-size: 1em;
-  color: rgb(145, 140, 140);
-}
-.posts-name .posts-date {
-  font-size: 0.9em;
-  color: rgb(168, 162, 162);
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 400;
-}
-
-main .posts-info .image {
-  width: 50px;
-  height: 50px;
-  border: 1px solid var(--c2);
-  margin-right: 15px;
-}
 main .posts-content {
-  display: flexbox;
+  display: flex;
   justify-content: center;
+  flex-direction: column;
   
 }
 main .posts-content>.post{
@@ -432,20 +413,61 @@ main .posts-content>.post{
   border-radius: 10px;
   padding:10px;
 }
-main .posts-content> .post .title .name{
+main .posts-content .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+main .posts .date {
+  align-self: flex-end;
+  font-size: 0.4em;
+}
+.posts .name {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 0.6em;
+  color: rgb(78, 76, 76);
+  
   margin-left: 50px;
   font-weight: bold;
+  margin-top: 12px;
+  
+  
+ 
+}
+.post .posts-like{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top:20px;
+  padding: 10px;
+}
+.post .posts-like .likes{
+margin-right: 10px;
 }
 
-main .posts-content .posts-title {
+.post .posts-content .content {
   font-size: 1em;
-  color: rgb(14, 61, 7);
+  color: rgb(168, 162, 162);
   font-family: "Ubuntu", sans-serif;
-  font-weight: 400;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  
+  padding: 0 10px;
+  
 }
-main .posts-content .posts-image {
+
+
+
+main .posts-content .image {
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--c2);
+  margin-right: 15px;
+}
+
+
+
+
+
+/* main .posts-content .posts-image {
   width: 350px;
   overflow: hidden;
   border-radius: 10px;
@@ -455,7 +477,7 @@ main .posts-content .posts-image {
 main .posts-content .posts-image img {
   width: 100%;
   object-fit: cover;
-}
+} */
 
 /*******footer*******/
 

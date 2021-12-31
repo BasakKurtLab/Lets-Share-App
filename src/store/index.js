@@ -9,7 +9,8 @@ export default new Vuex.Store({
     isUser: "",
     token: "",
     posts: [],
-    looding:""
+    looding: "",
+    userposts: []
   },
   getters:
   {
@@ -21,9 +22,27 @@ export default new Vuex.Store({
     },
     postsUser(state) {
       return state.posts.find(el => el.name == "user")
+    },
+    postsId(state) {
+      return state.posts.find(el => el.name == "id")
+    },
+    userpostsContent(state) {
+      return state.userposts.find(el => el.name == "content")
+    },
+    userpostsDate(state) {
+      return state.userposts.find(el => el.name == "date")
+    },
+    userpostsUser(state) {
+      return state.userposts.find(el => el.name == "user")
+    },
+    userpostsId(state) {
+      return state.userposts.find(el => el.name == "id")
     }
   },
   mutations: {
+    addUserposts(state, payload) {
+      state.userposts.push(payload)
+    },
     addPosts(state, payload) {
       state.posts.push(payload)
     },
@@ -32,6 +51,24 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    async inituserPosts(context) {
+      
+      let response = await fetch("http://localhost/posts.php");
+
+      let result = await response.json();
+        
+       
+       
+        
+          let i = 1;
+      for (let p in result)
+      {
+            context.commit("addUserposts", { id: result[p].id, content: result[p].content, date: result[p].date, user: result[p].user})
+            i++;
+          }
+          
+        },
+
     async initPosts(context) {
       
       let response = await fetch("http://localhost/posts.php");
@@ -41,10 +78,10 @@ export default new Vuex.Store({
        
        
         
-          let i = 0;
+          let i = 1;
       for (let p in result)
       {
-            context.commit("addPosts", { id: i, content: result[p].content, date: result[p].date, user: result[p].user })
+            context.commit("addPosts", { id: result[p].id, content: result[p].content, date: result[p].date, user: result[p].user})
             i++;
           }
           
@@ -56,12 +93,15 @@ export default new Vuex.Store({
           let result = await response.json();
       
         
-         
+          
          let i = 0;
          for(let p in result)
        {
-           context.commit("updatePosts", {id: i, content: result[p].content, date: result[p].date, user: result[p].user })
+           context.commit("updatePosts", { id: result[p].id, content: result[p].content, date: result[p].date, user: result[p].user });
            i++
+           
+           
+
         }
            
        }

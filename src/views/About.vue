@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+
 // @ is an alias to /src
  import Header from "../components/Header.vue";
   import Menu from "../components/Menu.vue";
@@ -66,19 +66,11 @@ export default {
   },
    created()
   {
-    this.$store.dispatch("initPosts");
-
-    setInterval(() =>
-    {
-      this.$store.dispatch("updatePosts");
-    }, 7000)
-
+    
   },
 
    computed:{
-    meineLokaleComputed () { return ""; /* normale, lokale Computed data */ },
-    ...mapState(["posts"]),
-    ...mapGetters(["postsContent", "postsDate", "postsUser"])}
+    }
 }
 
   

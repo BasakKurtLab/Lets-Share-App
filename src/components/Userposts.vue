@@ -3,7 +3,7 @@
                    
 
      <div class="posts-content" >
-        <div class="post" v-for="(p, index) in posts" :key="p.id">
+        <div class="post" v-for="(p, index) in userposts" :key="p.id">
             <div class="title">
                 <div class="image">
                      <img src="../assets/frau.png">
@@ -54,117 +54,57 @@ export default {
     data(){
         return{
             loading:false,
-            liked:"",
-            commitText:"",
-            commited:false,
-            likes_n:""
+            posts: []
+            
            
             
         }
     },
     methods:{
-        like: function(i){
-          
-      this.loading = true;
-      this.liked = true
-      
-
-      fetch("http://localhost/like.php?id=" + (i) + "&token=" + (document.cookie.split("=")[1]),
-      {
         
-        mode: 'cors',
-       
-      })
-      .then(answer => answer.json())
-      .then(result => {
-        
-        if(result.successful == "1")
-        {
-        
-         this.loading = false;
-        
-        
-
-          
-        }
-        
-
-      })
-      .finally(() =>
-      {
-        
-        this.loading = false;
-        this.liked = true
-        
-
-      });
-
-      
-      
-    // },commit(){
-    //      this.loading = true;
-    //     this.commited = true;
-    // },
-
-
-    // commitSend:function(i){
-       
-
-    //      const formData = new FormData();
-    //   formData.append("commit", this.commitText);
-      
-      
-
-    //   fetch("http://localhost/commit.php?id=" + (i) + "&token=" + (document.cookie.split("=")[1]),
-    //   {
-    //     method:'POST'
-    //     mode: 'cors',
-    //     body: formData
-       
-    //   })
-    //   .then(answer => answer.json())
-    //   .then(result => {
-        
-    //     if(result.successful == "1")
-    //     {
-    //         this.commitText = "";
-    //      this.loading = false;
-    //      this.commited = false;
-
-          
-    //     }
-    //     else
-    //     {
-          
-    //     }
-
-    //   })
-    //   .finally(() =>
-    //   {
-        
-    //     this.loading = false;
-    //     this.commited = false
-        
-
-    //   });
-
-      
-      
-    }
 
     },
     created(){
+     this.$store.dispatch("inituserPosts");
 
+    // //     setTimeout(() => {
 
-    this.$store.dispatch("initPosts");
+    // //   fetch("http://localhost/userposts.php?token=" + (document.cookie.split("=")[1]),
+    // //   {
+    // //     mode: "cors",
+
+    // //   })
+    // //   .then(response => response.json())
+    // //   .then(result => {
+
+    // //     if(result.successful == "1")
+    // //     {
+    // //       this.posts.push(result);
+    // //     }
+
+        
+    //   })
+    //   .finally(() =>
+    //   {
+    //     this.loading = false;
+    //   });
+
+    // }, 1500);
+    
+  
+
+     
+   
 
 
       
     },
      computed:{
+         
     meineLokaleComputed () { return ""; /* normale, lokale Computed data */ },
-    ...mapState(["posts"]),
-    ...mapGetters(["postsContent", "postsDate", "postsUser", "postsId"])}
+    ...mapState(["userposts"]),
+    ...mapGetters(["userpostsContent", "userpostsDate", "userpostsUser", "userpostsId"])
+    }
           
                
 }

@@ -62,8 +62,7 @@ export default {
   methods:{
     send(){
       {
-      if(this.loading)
-        return;
+      
 
       this.loading = true;
       this.btn_text = "Sending..."
@@ -85,13 +84,11 @@ export default {
         {
          this.postText="";
          this.loading = false;
+         
 
           
         }
-        else
-        {
-          this.info = "A problem...";
-        }
+       
 
       })
       .finally(() =>
@@ -104,22 +101,7 @@ export default {
       
     }
 
-    },
-//     async function uploadFile(){
-//     const formData = new FormData();
-//     formData.append('nameusedinFormData',uploadinput.files[0]);    
-//     try{
-//         const response = await fetch('http://localhost/photos.php',{
-//             method:'POST',
-//             body:formData
-//         } );
-//         const result = await response.json();
-//         console.log(result);
-//     }catch(e){
-//         console.log(e);
-
-//     }
-// }
+    }
     
     
  }

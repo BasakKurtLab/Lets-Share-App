@@ -6,17 +6,30 @@
         <img src="">
         <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" class="loadingImg" v-show="loading">
       </div>
-      <div class="email">{{ email }}</div>
+      <div>
+        <div class="username">{{ username }}</div>
+        <a href="">Edit my profile</a>
+      </div>
+      <div>
+        <div class="posts_n">{{ username }}</div>
+        <div class="friends_n">{{ username }}</div>
+        <div class="followers_n">{{ username }}</div>
+      </div>
+      
     </div>
 
     <div class="row alt">
       <div class="postlar">
         <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" class="loadingImg" v-show="loading">
+        
+        
       </div>
     </div>
 
   </div>
 </template>
+
+
 
 <script>
 export default {
@@ -25,7 +38,7 @@ export default {
   {
     setTimeout(() => {
 
-      fetch("http://localhost/profile.php?id=" + "3" + "&token=" + (document.cookie.split("=")[1]),
+      fetch("http://localhost/user.php?token=" + (document.cookie.split("=")[1]),
       {
         mode: "cors",
 
@@ -33,9 +46,9 @@ export default {
       .then(response => response.json())
       .then(sonuc => {
 
-        if(sonuc.basarili == "1")
+        if(sonuc.successful == "1")
         {
-          this.email = sonuc.email;
+          this.username = sonuc.username;
         }
 
         
@@ -53,7 +66,7 @@ export default {
   {
     return {
       loading: true,
-      email: ""
+      username: ""
     }
   }
 

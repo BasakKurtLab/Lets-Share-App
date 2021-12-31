@@ -44,7 +44,7 @@
         <input type="password" placeholder="Password" v-model="r_pass" required>
         <input type="text" placeholder="Telephone" v-model="r_tel" required>
         <button @click="register" >
-                             {{btn_text}}
+                             Sign Up
         </button>
         
         
@@ -95,8 +95,7 @@
           },
             login()
     {
-      if(this.loading)
-        return;
+      
 
       this.loading = true;
       this.btn_text = "Please wait..."
@@ -129,6 +128,8 @@
         else
         {
           this.info = "incorrect entry";
+          this.u_email="";
+          this.u_pass="";
         }
 
       })
