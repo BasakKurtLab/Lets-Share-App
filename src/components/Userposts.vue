@@ -65,8 +65,8 @@ export default {
 
     },
     created(){
-     this.$store.dispatch("inituserPosts");
-     this.$store.dispatch("updateuserposts");
+     this.$store.dispatch("initUserPosts");
+     this.$store.dispatch("updateUserPosts");
 
     // //     setTimeout(() => {
 
