@@ -157,6 +157,7 @@ export default {
 
 
     this.$store.dispatch("initPosts");
+    this.$store.dispatch("updatePosts");
 
 
       
