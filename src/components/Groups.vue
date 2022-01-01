@@ -1,11 +1,31 @@
 <template>
     <div class="f-groups">
-                        <div class="title">Your Favorite Groups</div>
+                        <div class="title">Suggestions For You</div>
                         <div class="groups">
-                        <a href="" class="menu-btn"> <div class="image"><img src="images/w3.jpg"></div><span>W3 School</span></a>
-                        <a href="" class="menu-btn"> <div class="image"><img src="images/profil.bmp"></div><span>Codepen</span></a>
-                        <a href="" class="menu-btn"> <div class="image"><img src="images/stack.png"></div><span>Stackoverflow</span></a>
-                        <a href="" class="menu-btn"> <div class="image"><img src="images/js.png"></div><span>Javascript Developer</span></a>
+                        <div class="card">
+                        <a href="" class="menu-btn"> <div class="image"><img src="../assets/user.png"></div><span>Ali</span></a><button>Follow</button>
+                        </div>
+                        <div class="card">
+                        <a href="" class="menu-btn"> <div class="image"><img src="../assets/user.png"></div><span>Veli</span></a><button>Follow</button>
+                        </div>
+                        <div class="card">
+                        <a href="" class="menu-btn"> <div class="image"><img src="../assets/user.png"></div><span>Oya</span></a><button>Follow</button>
+                        </div>
+                        <div class="card">
+                        <a href="" class="menu-btn"> <div class="image"><img src="../assets/user.png"></div><span>Ayse</span></a><button>Follow</button>
+                        </div>
                      </div>
     </div>
 </template>
+<style >
+.card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card>button{
+    margin-top: 0;
+    align-self: center;
+}
+
+</style>
