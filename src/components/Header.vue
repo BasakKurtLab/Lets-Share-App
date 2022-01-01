@@ -182,7 +182,8 @@
 .navbar .menu li .image,
 main .groups .image,
 main .middle .post .image,
-main .posts-info .image {
+main .posts-info .image,
+.menu .menu-left .image img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -190,7 +191,7 @@ main .posts-info .image {
   overflow: hidden;
 }
 .navbar .menu li .image img,
-main .groups .image img,
+main .groups .image img, .menu .menu-left .image img,
 main .middle .post .image img,
 main .posts-info .image img {
   width: 100%;
@@ -239,15 +240,15 @@ main section , .posts-content>.posts{
 }
 main .left,
 main .right {
-  width: calc(30% - 15px);
+  width: calc(25% - 15px);
 }
 main .middle {
-  width: calc(40% - 15px);
+  width: calc(50% - 15px);
 }
 main section .title,
 main .f-groups .title {
   color: var(--c6);
-  font-size: 1.8em;
+  font-size: 1.5em;
   font-family: "Ubuntu", sans-serif;
 }
 main .left .title,
@@ -266,7 +267,7 @@ main .left .menu-left a {
   font-family: "Ubuntu", sans-serif;
   font-size: 1.2em;
   transition: color 0.3s ease;
-  padding: 12px 25px;
+  padding: 12px 10px;
 }
 
 main .left .menu-left a i {
@@ -296,12 +297,12 @@ main .f-groups .title::before {
 }
 /********favorite Groups******/
 
-main .groups {
+main .groups, .menu .menu-left {
   display: flex;
   flex-direction: column;
   padding: 0px 25px 25px 25px;
 }
-main .groups a {
+main .groups a, .menu .menu-left a {
   display: block;
   display: flex;
   align-items: center;
@@ -311,7 +312,7 @@ main .groups a {
   font-size: 1.2em;
   transition: color 0.3s ease;
 }
-main .groups a span {
+main .groups a span, .menu .menu-left {
   margin-left: 10px;
 }
 /******* section middle *****/
@@ -383,7 +384,7 @@ main .middle .post-text .img-add {
 }
 
 
-main .middle .post .post-bottom button, .posts-allcommits button {
+main .middle .post .post-bottom button, .posts-allcommits button, .card>button {
   padding:5px 8px;
   margin-top: 20px;
   border-radius: 6px;
