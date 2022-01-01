@@ -43,6 +43,9 @@ export default new Vuex.Store({
     addUserposts(state, payload) {
       state.userposts.push(payload)
     },
+    updateuserposts(state, payload) {
+      state.userposts.splice(payload.id, 1, { id: payload.id, user: payload.user, content: payload.content, date: payload.date })
+    },
     addPosts(state, payload) {
       state.posts.push(payload)
     },
@@ -53,7 +56,7 @@ export default new Vuex.Store({
   actions: {
     async inituserPosts(context) {
       
-      let response = await fetch("http://localhost/posts.php");
+      let response = await fetch("http://localhost/userposts.php?token="+ (document.cookie.split("=")[1]));
 
       let result = await response.json();
         
