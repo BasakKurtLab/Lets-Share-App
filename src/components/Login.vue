@@ -33,10 +33,14 @@
 
           <div class="formContainer" v-show="new_user">
     
-          <img src="../assets/user.png">
+          
           <h1>Registration</h1>
+          <img :src="selectedImage == null ? '../user.png' : selectedImage" >
 
-        <form >
+       
+        <form enctype="multipart/form-data">
+        <input ref="file" type="file" style="display: none;" @change="onChange($event)" name="image">
+        <button  type="button" @click="$refs.file.click()">Profile picture</button>
         <input type="text" placeholder="Name" v-model ="r_name"  required>
         <input type="text" placeholder="Surname" v-model="r_surname" required>
         <input type="text" placeholder="Username" v-model="r_username" required>
@@ -75,12 +79,19 @@
       r_username:"",
       r_email:"",
       r_pass:"",
-      r_tel:""
+      r_tel:"",
+      r_img:"",
+      selectedImage: null
+      
     
                 
             }
         },
         methods: {
+          onChange(e) {
+                const file = e.target.files[0];
+                this.selectedImage = URL.createObjectURL(file);
+            },
           reg(){
             this.new_user= !this.new_user;
             if(this.new_user){
@@ -151,6 +162,7 @@
       
 
       const formData = new FormData();
+      // formData.append("image", this.selectedImage, this.selectedImage.name );
       formData.append("name", this.r_name);
       formData.append("surname", this.r_surname);
       formData.append("username", this.r_username);
@@ -275,9 +287,13 @@ h1, h5 {
   justify-content: center;
   
 }
+
 .formContainer > img {
   width: 100px;
   margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  
 }
 .formContainer h5 {
   margin: 0;
