@@ -33,10 +33,17 @@
 
 <script>
 export default {
+  data()
+  {
+    return {
+      loading: true,
+      username: ""
+    }
+  },
   
   created()
   {
-    setTimeout(() => {
+    
 
       fetch("http://localhost/user.php?token=" + (document.cookie.split("=")[1]),
       {
@@ -58,17 +65,11 @@ export default {
         this.loading = false;
       });
 
-    }, 1500);
     
-  },
-
-  data()
-  {
-    return {
-      loading: true,
-      username: ""
-    }
+    
   }
+
+  
 
 }
 </script>
