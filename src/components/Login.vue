@@ -1,168 +1,162 @@
 <template>
   <div class="main">
     <div class="logo">
-      <img src="../assets/logo2.png">
+      <img src="../assets/logo2.png" />
     </div>
-    
-    
+
     <div class="formContainer" v-show="!new_user">
-      <img src="../assets/user.png">
-          <h1>Login</h1>
+      <img src="../assets/user.png" />
+      <h1>Login</h1>
 
-          <form>
-            
-            <input type="email" placeholder="E-Mail-Address" v-model="u_email" required>
-            <input type="password" placeholder="Password" v-model="u_pass" required>
-          
-          
-          
-            <button @click="login" >
-                             {{btn_text}}
-            </button>
+      <form>
+        <input
+          type="email"
+          placeholder="E-Mail-Address"
+          v-model="u_email"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          v-model="u_pass"
+          required
+        />
 
-            <span>{{ info }}</span>
-                        
-           </form> 
-
-          <div class="bottom">
-            <h5>Are you new?</h5>
-            <a @click="reg" href="#">Sign Up</a>
-          </div>
-      </div>
-  
-
-          <div class="formContainer" v-show="new_user">
-    
-          
-          <h1>Registration</h1>
-          <img :src="selectedImage == null ? '../user.png' : selectedImage" >
-
-       
-        <form enctype="multipart/form-data">
-        <input ref="file" type="file" style="display: none;" @change="onChange($event)" name="image">
-        <button  type="button" @click="$refs.file.click()">Profile picture</button>
-        <input type="text" placeholder="Name" v-model ="r_name"  required>
-        <input type="text" placeholder="Surname" v-model="r_surname" required>
-        <input type="text" placeholder="Username" v-model="r_username" required>
-        <input type="email" placeholder="E-Mail-Address" v-model="r_email" required>
-        <input type="password" placeholder="Password" v-model="r_pass" required>
-        <input type="text" placeholder="Telephone" v-model="r_tel" required>
-        <button @click="register" >
-                             Sign Up
+        <button @click="login">
+          {{ btn_text }}
         </button>
-        
-        
-        <div class="bottom">
-        <a @click="reg" href="#"><h5>Already have an account?</h5></a>
-            
+
+        <span>{{ info }}</span>
+      </form>
+
+      <div class="bottom">
+        <h5>Are you new?</h5>
+        <a @click="reg" href="#">Sign Up</a>
+      </div>
     </div>
 
-        </form>
+    <div class="formContainer" v-show="new_user">
+      <h1>Registration</h1>
+      <img :src="selectedImage == null ? '../user.png' : selectedImage" />
+
+      <form enctype="multipart/form-data">
+        <input
+          ref="file"
+          type="file"
+          style="display: none"
+          @change="onChange($event)"
+          name="image"
+        />
+        <button type="button" @click="$refs.file.click()">
+          Profile picture
+        </button>
+        <input type="text" placeholder="Name" v-model="r_name" required />
+        <input type="text" placeholder="Surname" v-model="r_surname" required />
+        <input
+          type="text"
+          placeholder="Username"
+          v-model="r_username"
+          required
+        />
+        <input
+          type="email"
+          placeholder="E-Mail-Address"
+          v-model="r_email"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          v-model="r_pass"
+          required
+        />
+        <input type="text" placeholder="Telephone" v-model="r_tel" required />
+        <button @click="register">Sign Up</button>
+
+        <div class="bottom">
+          <a @click="reg" href="#"><h5>Already have an account?</h5></a>
+        </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-
-    export default {
-        data() {
-            return {
-              
+export default {
+  data() {
+    return {
       u_email: "",
       u_pass: "",
       btn_text: "Login",
       loading: false,
       info: "",
-      new_user:false,
-      r_name:"",
-      r_surname:"",
-      r_username:"",
-      r_email:"",
-      r_pass:"",
-      r_tel:"",
-      r_img:"",
-      selectedImage: null
-      
-    
-                
-            }
-        },
-        methods: {
-          onChange(e) {
-                const file = e.target.files[0];
-                this.selectedImage = URL.createObjectURL(file);
-            },
-          reg(){
-            this.new_user= !this.new_user;
-            if(this.new_user){
-              this.btn_text="Sign Up";
-            }
-            else{
-              this.btn_text="Login";
-            }
-            
-            
-
-          },
-            login()
-    {
-      
-
+      new_user: false,
+      r_name: "",
+      r_surname: "",
+      r_username: "",
+      r_email: "",
+      r_pass: "",
+      r_tel: "",
+      r_img: "",
+      selectedImage: null,
+      selectedImg: "",
+    };
+  },
+  methods: {
+    onChange(e) {
+      this.selectedImg = e.target.files[0];
+      const file = e.target.files[0];
+      this.selectedImage = URL.createObjectURL(file);
+    },
+    reg() {
+      this.new_user = !this.new_user;
+      if (this.new_user) {
+        this.btn_text = "Sign Up";
+      } else {
+        this.btn_text = "Login";
+      }
+    },
+    login() {
       this.loading = true;
-      this.btn_text = "Please wait..."
+      this.btn_text = "Please wait...";
 
       const formData = new FormData();
       formData.append("email", this.u_email);
       formData.append("pass", this.u_pass);
 
-      fetch("http://localhost/login.php",
-      {
-        method: 'POST',
-        mode: 'cors',
-        body: formData
+      fetch("http://localhost/login.php", {
+        method: "POST",
+        mode: "cors",
+        body: formData,
       })
-      .then(answer => answer.json())
-      .then(result => {
-        
-        if(result.successful == "1")
-        {
-          // BURASI DEGISTIRELECEK
-          document.cookie = "token=" + result.token;
-          
-          // HOS GELDIN
-          // sayfayi degis
-          // ...
-           this.$router.push('/about')
+        .then((answer) => answer.json())
+        .then((result) => {
+          if (result.successful == "1") {
+            // BURASI DEGISTIRELECEK
+            document.cookie = "token=" + result.token;
 
-          
-        }
-        else
-        {
-          this.info = "incorrect entry";
-          this.u_email="";
-          this.u_pass="";
-        }
-
-      })
-      .finally(() =>
-      {
-        this.btn_text = "Login";
-        this.loading = false;
-      });
-
-      
-      
+            // HOS GELDIN
+            // sayfayi degis
+            // ...
+            this.$router.push("/about");
+          } else {
+            this.info = "incorrect entry";
+            this.u_email = "";
+            this.u_pass = "";
+          }
+        })
+        .finally(() => {
+          this.btn_text = "Login";
+          this.loading = false;
+        });
     },
-    register()
-    {
-      if(this.loading)
-        return;
+    register() {
+      if (this.loading) return;
 
       this.loading = true;
-      
 
       const formData = new FormData();
-      // formData.append("image", this.selectedImage, this.selectedImage.name );
+      formData.append("image", this.selectedImg);
       formData.append("name", this.r_name);
       formData.append("surname", this.r_surname);
       formData.append("username", this.r_username);
@@ -170,59 +164,39 @@
       formData.append("pass", this.r_pass);
       formData.append("tel", this.r_tel);
 
-      fetch("http://localhost/register.php",
-      {
-        method: 'POST',
-        mode: 'cors',
-        body: formData
+      fetch("http://localhost/register.php", {
+        method: "POST",
+        mode: "cors",
+        body: formData,
       })
-      .then(answer => answer.json())
-      .then(result => {
-        
-        if(result.successful == "1")
-        {
-          
-          
-          this.new_user=false;
-
-          
-        }
-        else
-        {
-          this.info = "Error";
-        }
-
-      })
-      .finally(() =>
-      {
-       
-        this.loading = false;
-      });
-
-      
-      
-    }
-          
-           
-        },
-        created(){
-            
+        .then((answer) => answer.json())
+        .then((result) => {
+          if (result.successful == "1") {
+            this.new_user = false;
+          } else {
+            this.info = "Error";
           }
-    }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+  },
+  created() {},
+};
 </script>
-
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap");
 * {
   box-sizing: border-box;
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
 }
 /*General style rules*/
 :root {
   --primaryBnt: #90a877;
-  
+
   --text: #37424c;
   --icon: #7a925e;
   --borderRadius: 8px;
@@ -233,7 +207,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
 
   font-family: "Ubuntu", sans-serif;
 
@@ -244,11 +217,10 @@
     rgba(243, 247, 241, 1) 100%
   );
   overflow: hidden;
- 
 }
 a {
   color: #7a925e;
-  
+
   font-size: 0.9em;
 }
 span {
@@ -258,25 +230,24 @@ span {
   margin-bottom: 5px;
 }
 
-h1, h5 {
+h1,
+h5 {
   text-align: center;
   font-weight: 300;
   color: rgb(43, 41, 41);
-  
-  
 }
 
 /*customer rules */
-.logo{
-  width:600px;
-  
+.logo {
+  width: 600px;
+
   border: none;
   margin-right: 80px;
-  }
-  .logo img{
-    width:100%;
-    object-fit: cover;
-  }
+}
+.logo img {
+  width: 100%;
+  object-fit: cover;
+}
 .formContainer {
   width: 400px;
   padding: 40px;
@@ -285,7 +256,6 @@ h1, h5 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 }
 
 .formContainer > img {
@@ -293,7 +263,6 @@ h1, h5 {
   margin: 0 auto;
   border-radius: 50%;
   overflow: hidden;
-  
 }
 .formContainer h5 {
   margin: 0;
@@ -310,7 +279,7 @@ h1, h5 {
   color: var(--icon);
 }
 
-input{
+input {
   font-family: Montserrat;
   border: none;
   border-bottom: 1px solid var(--icon);
@@ -319,8 +288,6 @@ input{
   padding: 8px 25px;
   border-radius: 6px;
   margin-bottom: 5px;
-  
- 
 }
 .formContainer form {
   position: relative;
@@ -367,7 +334,7 @@ span.info {
   text-align: center;
   height: 20px;
 }
-h5{
+h5 {
   font-size: 0.8em;
 }
 /* #under {
@@ -407,5 +374,4 @@ table th {
   text-align: left;
   cursor: pointer;
 } */
-
 </style>

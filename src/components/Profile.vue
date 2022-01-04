@@ -1,10 +1,13 @@
 <template>
   <div class="profile">
-    
     <div class="row ust">
       <div class="profilResmi">
-        <img src="">
-        <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" class="loadingImg" v-show="loading">
+        <img src="" />
+        <img
+          src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif"
+          class="loadingImg"
+          v-show="loading"
+        />
       </div>
       <div>
         <div class="username">{{ username }}</div>
@@ -15,82 +18,62 @@
         <div class="friends_n">{{ username }}</div>
         <div class="followers_n">{{ username }}</div>
       </div>
-      
     </div>
 
     <div class="row alt">
       <div class="postlar">
-        <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" class="loadingImg" v-show="loading">
-        
-        
+        <img
+          src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif"
+          class="loadingImg"
+          v-show="loading"
+        />
       </div>
     </div>
-
   </div>
 </template>
 
-
-
 <script>
 export default {
-  data()
-  {
+  data() {
     return {
       loading: true,
-      username: ""
-    }
+      username: "",
+    };
   },
-  
-  created()
-  {
-    
 
-      fetch("http://localhost/user.php?token=" + (document.cookie.split("=")[1]),
-      {
-        mode: "cors",
-
-      })
-      .then(response => response.json())
-      .then(sonuc => {
-
-        if(sonuc.successful == "1")
-        {
+  created() {
+    fetch("http://localhost/user.php?token=" + document.cookie.split("=")[1], {
+      mode: "cors",
+    })
+      .then((response) => response.json())
+      .then((sonuc) => {
+        if (sonuc.successful == "1") {
           this.username = sonuc.username;
         }
-
-        
       })
-      .finally(() =>
-      {
+      .finally(() => {
         this.loading = false;
       });
-
-    
-    
-  }
-
-  
-
-}
+  },
+        
+        computed: {
+          
+    }
+};
 </script>
 
-
 <style scoped>
-
-.row
-{
+.row {
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
 }
-.ust
-{
+.ust {
   margin-bottom: 50px;
   display: flex;
   align-items: center;
 }
-.profilResmi
-{
+.profilResmi {
   background-color: rgb(197, 197, 197);
   border-radius: 50%;
   margin-right: 50px;
@@ -102,8 +85,7 @@ export default {
   justify-content: center;
 }
 
-.postlar
-{
+.postlar {
   background-color: rgb(197, 197, 197);
   height: 300px;
   position: relative;
@@ -111,11 +93,8 @@ export default {
   padding: 20px;
 }
 
-
-.loadingImg
-{
+.loadingImg {
   position: absolute;
   width: 30px;
 }
-
 </style>

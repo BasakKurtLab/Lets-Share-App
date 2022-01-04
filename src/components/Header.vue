@@ -84,11 +84,11 @@
         
         
         
-        }
-        ,
+        },
+        
         computed: {
-            
-        }
+         
+    }
     }
 </script>
 <style>
