@@ -8,19 +8,28 @@
           class="loadingImg"
           v-show="loading"
         />
+        </div>
       </div>
-      <div>
-        <div class="username">{{ username }}</div>
-        <a href="">Edit my profile</a>
+      <div class="left">
+        <div class="top">
+          <div class="username">{{ email }}</div>
+          <button >Edit my profil</button>
+        </div>
+        <div class="bottom">
+            <span class="posts_n">{{ posts }} posts</span>
+            <span class="followers_n">{{ followers }} followers</span>
+            <span class="following">{{ following }} following</span>
+        </div>
+        
+            <div class="name"> {{ name }} {{ surname }}</div>
+       
       </div>
-      <div>
-        <div class="posts_n">{{ username }}</div>
-        <div class="friends_n">{{ username }}</div>
-        <div class="followers_n">{{ username }}</div>
-      </div>
+       
     </div>
 
-    <div class="row alt">
+    
+
+    <!-- <div class="row alt">
       <div class="postlar">
         <img
           src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif"
@@ -28,8 +37,8 @@
           v-show="loading"
         />
       </div>
-    </div>
-  </div>
+    </div> -->
+  
 </template>
 
 <script>
@@ -38,6 +47,14 @@ export default {
     return {
       loading: true,
       username: "",
+      email:"",
+      posts:"",
+      name:"",
+      surname:"",
+      followers:"",
+      following:""
+      
+
     };
   },
 
@@ -49,6 +66,13 @@ export default {
       .then((sonuc) => {
         if (sonuc.successful == "1") {
           this.username = sonuc.username;
+          this.email = sonuc.email;
+          this.posts = sonuc.posts;
+          this.name = sonuc.name;
+          this.surname = sonuc.surname;
+          this.followers = sonuc.followers;
+          this.following = sonuc.following;
+
         }
       })
       .finally(() => {
@@ -63,22 +87,77 @@ export default {
 </script>
 
 <style scoped>
+.profile{
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
 .row {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
+  flex-grow: 1;
+ margin: 0 auto;
+ padding: 20px;
+ margin-right: 25px;
+ 
+  
 }
 .ust {
-  margin-bottom: 50px;
+  
   display: flex;
+  justify-content: center;
   align-items: center;
 }
-.profilResmi {
-  background-color: rgb(197, 197, 197);
-  border-radius: 50%;
+.left{
+  flex-grow: 4;
+  
+}
+.left .top, .bottom{
+  display: flex;
+  justify-content: space-between;
+  
+  
+}
+.left span{
+  font-family: "Ubuntu", sans-serif;
+  
+}
+.left .top .username{
+  font-size: 1.4em;
   margin-right: 50px;
-  height: 100px;
-  width: 100px;
+}
+.left  .name{
+  
+  font-weight: 600;
+  
+}
+.left .top button{
+  padding:5px 8px;
+  border-radius: 6px;
+  outline: none;
+  border:1px solid rgb(182, 179, 179);
+  align-self: flex-end;
+  background-color: white;
+  color:var(--c1);
+  cursor: pointer;
+  transition: all o.2s;
+  
+}
+.left .top button:hover{
+  background-color: var(--c1);
+  color:white;
+}
+.bottom{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.profilResmi {
+  background-color: rgb(236, 233, 233);
+  border-radius: 50%;
+  margin-right: 0;
+  height: 150px;
+  width: 150px;
   position: relative;
   display: flex;
   align-items: center;
