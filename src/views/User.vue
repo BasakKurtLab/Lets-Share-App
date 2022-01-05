@@ -1,10 +1,12 @@
 <template>
   <div>
     <Header />
-    <main>
-      <div class="max-width">
+    <main class="mitte">
+     <div class="middle">
+        <section class="middle-top ">
         <Profile></Profile>
-      </div>
+        </section>
+     </div>
       <div class="middle">
         <section class="middle-bottom">
           <Userposts />
@@ -41,4 +43,18 @@ export default {
 
 </script>
 
-<style></style>
+<style scoped>
+.mitte{
+  width: 100%;
+  margin: 0 auto;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+}
+.middle{
+  width: calc(40%);
+}
+
+</style>
