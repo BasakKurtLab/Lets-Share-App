@@ -60,7 +60,7 @@
           // HOS GELDIN
           // sayfayi degis
           // ...
-           this.$router.push('/');
+           this.$router.push({ path: '/' });
         }
 
         
@@ -70,16 +70,16 @@
         this.loading = false;
       });
 
-    }, 1500);
+    }, 500);
 
         },
 
         update(){
-             this.$router.push('/user')
+             this.$router.push({ path: '/user' });
 
         },
         home(){
-           this.$router.push('/about')
+            this.$router.push({ path: '/about' });
         }
         
         
